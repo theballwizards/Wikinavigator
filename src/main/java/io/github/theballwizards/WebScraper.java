@@ -7,7 +7,6 @@ public class WebScraper {
 
     /**
      * Generates an edge list of urls by crawling a wiki for all its articles.
-     * @param url The url to start crawling from.
      * @return An edge list of urls.
      */
     public static String scrapeEdgeListOfUrls() {
