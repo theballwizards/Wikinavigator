@@ -15,7 +15,7 @@ public class App {
      * @param endUrl The target position
      * @return An iterable of urls, starting at the start, and ending at the end.
      */
-    private Iterable<String> findPath(Digraph graph, String startUrl, String endUrl) {
+    private static Iterable<String> findPath(Digraph graph, String startUrl, String endUrl) {
         return null; // TODO
     }
 }
