@@ -3,7 +3,7 @@ package io.github.theballwizards;
 import edu.princeton.cs.algs4.Digraph;
 
 public class GraphBuilder {
-    public final String GRAPH_FILEPATH = "src/main/resources/graph.txt";
+    public static final String GRAPH_FILEPATH = "src/main/resources/graph.txt";
 
     /**
      * Builds a directional graph of urls from either web scraping or a saved cache file
