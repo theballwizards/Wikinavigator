@@ -3,16 +3,16 @@ package io.github.theballwizards;
 public class WebScraper {
     public static final int MAX_SEARCH_DEPTH = 12;
     public static final String START_LINK = "TODO";
-    public static final String PARENT_DOMAIN = "TODO";
+    public static final String STARTING_PAGE = "TODO";
 
     /**
      * Generates an edge list of urls by crawling a wiki for all its articles.
      * @param url The url to start crawling from.
      * @return An edge list of urls.
      */
-    public static String scrapeEdgeListOfUrlsFromSite(String url) {
+    public static String scrapeEdgeListOfUrls() {
         StringBuilder builder = new StringBuilder();
-        scrapeEdgeListOfUrlsFromSite(builder, url, MAX_SEARCH_DEPTH);
+        scrapeEdgeListOfUrlsFromSite(builder, STARTING_PAGE, MAX_SEARCH_DEPTH);
         return builder.toString();
     }
 

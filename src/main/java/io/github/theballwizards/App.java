@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.Digraph;
 
 public class App {
     public static void main(String[] args) {
+        Digraph graph = GraphBuilder.build();
     }
 
     /**

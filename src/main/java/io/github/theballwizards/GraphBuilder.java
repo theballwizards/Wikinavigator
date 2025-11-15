@@ -7,12 +7,17 @@ public class GraphBuilder {
 
     /**
      * Builds a directional graph of urls from either web scraping or a saved cache file
-     * @param startUrl The starting position
-     * @param endUrl The target position
      * @return A directional graph or urls
      */
-    public static Digraph build(String startUrl, String endUrl) {
-        return null; //TODO
+    public static Digraph build() {
+        if (hasCachedDataFile()) {
+            final String graphData = readGraphDataFromFile();
+            return generateGraphFromUrlsEdgeList(graphData);
+        }
+        else {
+            final String graphData = WebScraper.scrapeEdgeListOfUrls();
+            return generateGraphFromUrlsEdgeList(graphData);
+        }
     }
 
     /**
@@ -35,9 +40,9 @@ public class GraphBuilder {
     /**
      * Reads potentially saved graph data from the cache file.
      * Check with hasCachedDataFile before using.
-     * @return A directional graph or urls.
+     * @return An edge list of urls
      */
-    private static Digraph readGraphDataFromFile() {
+    private static String readGraphDataFromFile() {
         return null; //TODO
     }
 
