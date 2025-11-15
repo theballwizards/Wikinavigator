@@ -10,14 +10,8 @@ public class GraphBuilder {
      * @return A directional graph or urls
      */
     public static Digraph build() {
-        if (hasCachedDataFile()) {
-            final String graphData = readGraphDataFromFile();
-            return generateGraphFromUrlsEdgeList(graphData);
-        }
-        else {
-            final String graphData = WebScraper.scrapeEdgeListOfUrls();
-            return generateGraphFromUrlsEdgeList(graphData);
-        }
+        final String edgeList = (hasCachedDataFile()) ? readGraphDataFromFile() : WebScraper.scrapeEdgeListOfUrls();
+        return generateGraphFromUrlsEdgeList(edgeList);
     }
 
     /**
