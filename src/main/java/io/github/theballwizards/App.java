@@ -3,8 +3,10 @@ package io.github.theballwizards;
 import edu.princeton.cs.algs4.Digraph;
 
 public class App {
+    private static Digraph graph;
+
     public static void main(String[] args) {
-        Digraph graph = GraphBuilder.build();
+        graph = GraphBuilder.build();
     }
 
     /**
@@ -16,7 +18,7 @@ public class App {
      * @param endUrl The target position
      * @return An iterable of urls, starting at the start, and ending at the end.
      */
-    private static Iterable<String> findPath(Digraph graph, String startUrl, String endUrl) {
+    private static Iterable<String> findPath(String startUrl, String endUrl) {
         return null; // TODO
     }
 }
