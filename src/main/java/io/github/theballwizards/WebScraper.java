@@ -2,7 +2,6 @@ package io.github.theballwizards;
 
 public class WebScraper {
     public static final int MAX_SEARCH_DEPTH = 12;
-    public static final String START_LINK = "TODO";
     public static final String STARTING_PAGE = "TODO";
 
     /**
