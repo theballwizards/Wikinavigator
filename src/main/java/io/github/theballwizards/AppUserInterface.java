@@ -5,8 +5,14 @@ import javax.swing.*;
 public class AppUserInterface extends JFrame {
     private Runnable searchCallback;
 
-    private JButton button1;
     private JPanel main;
+    private JTextField startUrlField;
+    private JTextField endUrlField;
+    private JButton Go;
+    private JLabel startLabel;
+    private JLabel endLabel;
+    private JPanel form;
+    private JScrollPane result;
 
     public AppUserInterface() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
