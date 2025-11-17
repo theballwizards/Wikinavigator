@@ -4,11 +4,11 @@ import edu.princeton.cs.algs4.Digraph;
 
 public class App {
     private static Digraph graph;
-    static UserInterface ui;
+    static AppUserInterface ui;
 
     public static void main(String[] args) {
         graph = GraphBuilder.build();
-        ui = new UserInterface();
+        ui = new AppUserInterface();
     }
 
     /**

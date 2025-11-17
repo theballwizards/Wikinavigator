@@ -1,20 +1,31 @@
 package io.github.theballwizards;
 
-public class AppUserInterface {
+import javax.swing.*;
+
+public class AppUserInterface extends JFrame {
     private Runnable searchCallback;
 
-    public AppUserInterface() {
+    private JButton button1;
+    private JPanel main;
 
+    public AppUserInterface() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setContentPane(main);
+        setSize(500, 500);
+        setVisible(true);
     }
 
     /**
-     * Sets the search callback member.
-     * Uses the builder pattern.
-     * @param callback Function to run when the go button is pressed.
-     * @return instance of caller.
+     * Finds a path of urls between two articles through a wiki.
+     * Articles must have the same web domain.
+     * Warning, this may take a while.
+     * @param graph A directional graph containing every url on the site
+     * @param startUrl The starting position
+     * @param endUrl The target position
+     * @return An iterable of urls, starting at the start, and ending at the end.
      */
-    public AppUserInterface setSearchCallback(Runnable callback) {
-        searchCallback = callback;
-        return this;
+    private static Iterable<String> findPath(String startUrl, String endUrl) {
+        return null; // TODO
     }
 }
