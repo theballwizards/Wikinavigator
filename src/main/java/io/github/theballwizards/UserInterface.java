@@ -1,14 +1,19 @@
 package io.github.theballwizards;
 
-import edu.princeton.cs.algs4.Digraph;
+import javax.swing.*;
 
-public class App {
-    private static Digraph graph;
-    static UserInterface ui;
+public class UserInterface extends JFrame {
+    private Runnable searchCallback;
 
-    public static void main(String[] args) {
-        graph = GraphBuilder.build();
-        ui = new UserInterface();
+    private JButton button1;
+    private JPanel main;
+
+    public UserInterface() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setContentPane(main);
+        setSize(500, 500);
+        setVisible(true);
     }
 
     /**
