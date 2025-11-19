@@ -7,7 +7,6 @@ public class App {
     static AppUserInterface ui;
 
     public static void main(String[] args) {
-        graph = GraphBuilder.build();
         ui = new AppUserInterface();
     }
 
@@ -15,7 +14,6 @@ public class App {
      * Finds a path of urls between two articles through a wiki.
      * Articles must have the same web domain.
      * Warning, this may take a while.
-     * @param graph A directional graph containing every url on the site
      * @param startUrl The starting position
      * @param endUrl The target position
      * @return An iterable of urls, starting at the start, and ending at the end.

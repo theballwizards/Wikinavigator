@@ -1,24 +1,61 @@
 package io.github.theballwizards;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class AppUserInterface extends JFrame {
     private Runnable searchCallback;
 
-    private JPanel main;
-    private JTextField startUrlField;
-    private JTextField endUrlField;
-    private JButton Go;
-    private JLabel startLabel;
-    private JLabel endLabel;
-    private JPanel form;
-    private JScrollPane result;
-
     public AppUserInterface() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setContentPane(main);
-        setSize(500, 500);
+        setSize(800, 800);
+
+        final var main = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        final var startLabel = new JLabel("Start:");
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
+        main.add(startLabel, gbc);
+
+        final var startUrlField = new JTextField();
+        gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 1;
+        main.add(startUrlField, gbc);
+
+        final var endLabel = new JLabel("End:");
+        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
+        main.add(endLabel, gbc);
+
+        final var endUrlField = new JTextField();
+        gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 1;
+        main.add(endUrlField, gbc);
+
+        final var btn = new JButton("Button");
+        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
+        gbc.weightx = 1;
+        main.add(btn, gbc);
+        gbc.gridwidth = 1;
+
+        final var model = new DefaultListModel<String>();
+        model.addElement("ITEM 1");
+        model.addElement("ITEM 2");
+        model.addElement("ITEM 3");
+
+        final var list = new JList<String>(model);
+        final var scrollPane = new JScrollPane(list);
+
+        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        main.add(scrollPane, gbc);
+
+        add(main);
+        setVisible(true);
+
         setVisible(true);
     }
 
