@@ -13,7 +13,7 @@ public class AppUserInterface extends JFrame {
 
         final var main = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(5, 100, 5, 100);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         final var startLabel = new JLabel("Start:");
