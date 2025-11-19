@@ -32,7 +32,7 @@ public class AppUserInterface extends JFrame {
         gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 1;
         main.add(endUrlField, gbc);
 
-        final var btn = new JButton("Button");
+        final var btn = new JButton("Go");
         gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
         gbc.weightx = 1;
         main.add(btn, gbc);
@@ -54,8 +54,6 @@ public class AppUserInterface extends JFrame {
         main.add(scrollPane, gbc);
 
         add(main);
-        setVisible(true);
-
         setVisible(true);
     }
 
