@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class WebScraperTest {
 
-    WebScraper webScraper = new WebScraper();
-
     @Test
     public void webScraper_BadRelativeStartingPage() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -38,6 +36,7 @@ public class WebScraperTest {
 
     @Test
     public void webScrapper_GotLinks() {
+        WebScraper webScraper = new WebScraper();
         String results = webScraper.scrapeEdgeListOfUrls();
         assertEquals(true, results.split("\n").length > 10);
     }
@@ -62,22 +61,17 @@ public class WebScraperTest {
 
     @Test
     public void webScraper_DefaultInitializationOnCorrectPage() throws Exception {
+        WebScraper webScraper = new WebScraper();
         String results = webScraper.scrapeEdgeListOfUrls();
         // We Can Make Sure It Is Initialize On The C Programming Langauage Wikipedia By
         // Taking A Few Random Links And Making Sure They Are All There
-        String[] expectedLinks = {
-                "BASIC",
-                "ALGOL",
-                "Compiler",
-                "FFmpeg",
-                "Fortran"
-        };
-        boolean containsAll = ((Callable<Boolean>)() -> {
-            for (var link : expectedLinks) {
-                if (!results.contains(link)) return false;
-            }
-            return true;
-        }).call();
+        String[] expectedLinks = { "BASIC",  "ALGOL",  "Compiler",  "FFmpeg",  "Fortran" };
+
+        boolean containsAll = true;
+        for (var link : expectedLinks) {
+            if (!results.contains(link)) containsAll = false;
+            StdOut.println(link + " exists in page: " + (results.contains(link) ? "True" : "False"));
+        }
         assertTrue(containsAll);
     }
 }

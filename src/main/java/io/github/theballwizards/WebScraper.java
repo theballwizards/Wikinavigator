@@ -23,14 +23,14 @@ public class WebScraper {
     // The Max Links Per Page Is To Limit The Growth Of The Graph, It Will Provide A Less Complete Tree, But May Be Required
     // As The Difference Between A Search Depth Of 1, and A Search Depth Of 2 is 200:100,000 Links
     // FIXME: Currently Unimplemented, Set To Large Value To Avoid Data Loss And Give The Largest Possible Graph
-    public static int MAX_LINKS_PER_PAGE = 999_999;
+    public int MAX_LINKS_PER_PAGE = 999_999;
 
     // The Depth Is How Many Links Deep To Search
-    private static int MAX_SEARCH_DEPTH = 1;
+    private int MAX_SEARCH_DEPTH = 1;
     // The Starting Page Will Be The Where The Webscraper Will Start
-    private static String STARTING_PAGE = "C_(programming_language)";
+    private String STARTING_PAGE = "C_(programming_language)";
     // The Parent Domain Must Be A Shared Domain Between All Of The Children's Pages To Work Correctly
-    private static String PARENT_DOMAIN = "https://en.wikipedia.org/wiki/";
+    private String PARENT_DOMAIN = "https://en.wikipedia.org/wiki/";
 
 
     // Prefixes To Be Excluded When Looking For Links Within Wikipedia Articles
@@ -73,7 +73,7 @@ public class WebScraper {
      *                    i.e. On Wikipedia: "/wiki/(ARTICLE NAME)" rather than the full URL
      * @param depth Base case, when to stop crawling.
      */
-    private static void scrapeEdgeListOfUrlsFromSite(StringBuilder stringBuilder, String relativeURL, int depth) {
+    private void scrapeEdgeListOfUrlsFromSite(StringBuilder stringBuilder, String relativeURL, int depth) {
         if (depth >= MAX_SEARCH_DEPTH) return;
         try {
             // Get the page to search for links
@@ -140,14 +140,15 @@ public class WebScraper {
     }
 
     /**
-     * The Default Construction Of The Webscrapper, If No Arguments Are Provided, Developer Constants Will Be Chosen.
+     * The Default Construction Of The Webscraper, If No Arguments Are Provided, Developer Constants Will Be Chosen.
      *
      * STARTING_PAGE = "C_(programming_language)"
      * MAX_LINKS_PER_PAGE = 999_999 -- Ignoring Limits/High Upper Bound
      * MAX_SEARCH_DEPTH = 1 -- Avoiding Explosive Growth In Graph Size
      */
     public WebScraper() {
-        // Here We Dont Have To Set Anything
+        // Here We Dont Have To Set Anything,
+        // Everything Is Set By Default When Declared
     }
 
 }
