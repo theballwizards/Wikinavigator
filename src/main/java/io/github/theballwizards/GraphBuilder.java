@@ -4,13 +4,15 @@ import edu.princeton.cs.algs4.Digraph;
 
 public class GraphBuilder {
     public static final String GRAPH_FILEPATH = "src/main/resources/graph.txt";
+    // Uses Default, Developer Provided Arguments, Consider Changing If The Need Arrises
+    private static WebScraper webScraper = new WebScraper();
 
     /**
      * Builds a directional graph of urls from either web scraping or a saved cache file
      * @return A directional graph or urls
      */
     public static Digraph build() {
-        final String edgeList = (hasCachedDataFile()) ? readGraphDataFromFile() : WebScraper.scrapeEdgeListOfUrls();
+        final String edgeList = (hasCachedDataFile()) ? readGraphDataFromFile() : webScraper.scrapeEdgeListOfUrls();
         return generateGraphFromUrlsEdgeList(edgeList);
     }
 
