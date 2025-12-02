@@ -1,9 +1,6 @@
 package io.github.theballwizards;
 
-import edu.princeton.cs.algs4.StdOut;
 import org.junit.Test;
-
-import java.util.concurrent.Callable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,8 +67,11 @@ public class WebScraperTest {
         boolean containsAll = true;
         for (var link : expectedLinks) {
             if (!results.contains(link)) containsAll = false;
-            StdOut.println(link + " exists in page: " + (results.contains(link) ? "True" : "False"));
         }
         assertTrue(containsAll);
     }
+
+    // TODO: TESTS FOR `WebScraper.getVisitedPageCount()`
+    // TODO: TESTS FOR `WebScraper.getTotalPageConnections()`
+
 }
