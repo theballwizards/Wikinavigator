@@ -1,6 +1,6 @@
 package io.github.theballwizards;
 
-import edu.princeton.cs.algs4.Graph;
+
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.SymbolDigraph;
 
@@ -8,6 +8,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * A Class To Help Build The Directed Symbol Graph
+ *
+ * Takes A Developer Defined Webscraper (Defined In Terms Of Settings) And Build The Symbol Graph
+ * From Algs4 Using The Results Of The Webscraper. Once The Graph Has Been Created It Will Be Saved
+ * In A Cached File, And That File Will Be Used Until The File Is Deleted Or The User Decides To Rebuild
+ * The Graph File (Either Manually -- Not Highly Recommended, Or Programmatically By Calling `GraphBuilder.rebuild()`)
+ *
+ * Note: If Rebuilding Graph, The Developer Defined Webscraper Is Still Going To Be Used, So The Newly Created Cache File
+ *       May Very Well Be The Same As The Old Cache File
+ *
+ * @author Bryson Crader
+ */
 public class GraphBuilder {
     public static final String GRAPH_FILEPATH = "src/main/resources/graph.txt";
     // Uses Default, Developer Provided Arguments, Consider Changing If The Need Arrises
@@ -22,30 +35,44 @@ public class GraphBuilder {
             // Here We Can Simply Read In The File
             return generateGraphFromCachedFile();
         } else {
-            // If The File Does Not Exist, We Need To Create It
-            try (FileWriter writer = new FileWriter(GRAPH_FILEPATH)) {
-                // Get Graph In The Format:
-                // vertex count
-                // edge count
-                // list of all edges
-
-                String edgeList = webScraper.scrapeEdgeListOfUrls();
-                int vertexCount = webScraper.getVisitedPageCount();
-                int edgeCount = webScraper.getTotalPageConnections();
-
-                writer.write(vertexCount + "\n");
-                writer.write(edgeCount + "\n");
-                writer.write(edgeList);
-
-            } catch (IOException e) {
-                System.err.printf("Failed Writing To Cached File Location '%s', Error: %s\n", GRAPH_FILEPATH, e);
-            }
-
-            // Once The Writer Is Done, If Return Has Not Been Called, We Need To Re-Call `build`,
-            // The Reason Being, We Can Reuse The Error Handling In All Cases Covered Rather Than
-            // Writing New Cases Below The Function
-            return build();
+            // Most Of The Functionality For Building A Graph Is Inside `rebuild`
+            // The Only Difference Is We Make Sure That The Graph Cache Does Not Exist
+            // Instead Of Creating A New Cache Each Time The Program Is Ran
+            return rebuild();
         }
+    }
+
+    /**
+     * Tells The Graph Builder That The Old Cached File Is No Longer Valid To Be
+     * Reused And A New Graph And Cached Graph File Should Be Created And Used From
+     * Here On Out.
+     *
+     * @return Returns The Newly Rebuilt Graph
+     *
+     * // TODO: Create Tests To Make Sure The Graph File Is Rebuilt Regardless Of The Cache's Existence Or Non-Existence
+     */
+    public static SymbolDigraph rebuild() {
+        // If The Cache File Does Not Exist, We Need To Create It
+        // In Either Case, The File Will Be Empty, The Writer Does Not Truncate
+        // So It Will Just Write All The Data As If The File Was Empty Beforehand
+        try (FileWriter writer = new FileWriter(GRAPH_FILEPATH)) {
+            // Get Graph In The Format:
+            // vertex count
+            // edge count
+            // list of all edges
+
+            String edgeList = webScraper.scrapeEdgeListOfUrls();
+            int vertexCount = webScraper.getVisitedPageCount();
+            int edgeCount = webScraper.getTotalPageConnections();
+
+            writer.write(vertexCount + "\n");
+            writer.write(edgeCount + "\n");
+            writer.write(edgeList);
+
+        } catch (IOException e) {
+            System.err.printf("Failed Writing To Cached File Location '%s', Error: %s\n", GRAPH_FILEPATH, e);
+        }
+        return generateGraphFromCachedFile();
     }
 
     /**
@@ -59,7 +86,7 @@ public class GraphBuilder {
      *       File, So In Either Case, We Would Read From The File Rather Than Pass The Edge List Directly.
      *
      *       In This Case, Im Going To Create A New Function, And We Can Handle Conflicts/Decision Later.
-     *       Prefer ``
+     *       Prefer `generateGraphFromCachedFile`
      *
      */
     @Deprecated
@@ -100,7 +127,6 @@ public class GraphBuilder {
      */
     @Deprecated()
     private static String readGraphDataFromFile() {
-        File cachedFile = new File(GRAPH_FILEPATH);
         return null; //TODO
     }
 

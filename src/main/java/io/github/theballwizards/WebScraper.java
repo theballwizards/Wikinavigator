@@ -21,7 +21,7 @@ import org.jsoup.select.Elements;
  */
 public class WebScraper {
     // The Max Links Per Page Is To Limit The Growth Of The Graph, It Will Provide A Less Complete Tree, But May Be Required
-    // As The Difference Between A Search Depth Of 1, and A Search Depth Of 2 is 200:100,000 Links
+    // As The Difference Between A Search Depth Of 1, and A Search Depth Of 2 is 200 vs 100,000 Links
     // FIXME: Currently Unimplemented, Set To Large Value To Avoid Data Loss And Give The Largest Possible Graph
     public int MAX_LINKS_PER_PAGE = 999_999;
 
