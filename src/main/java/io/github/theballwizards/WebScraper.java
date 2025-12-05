@@ -149,7 +149,7 @@ public class WebScraper {
 
             // Go Through All Linked Pages And Recursively Add More Links From The Given Link
             for (String wikiPage : linkedPages) {
-                stringBuilder.append(String.format("\"%s\" \"%s\"\n",relativeURL, wikiPage));
+                stringBuilder.append(String.format("%s %s\n",relativeURL, wikiPage));
                 scrapeEdgeListOfUrlsFromSite(stringBuilder, wikiPage, depth+1);
             }
 

@@ -56,17 +56,8 @@ public class GraphBuilder {
         // In Either Case, The File Will Be Empty, The Writer Does Not Truncate
         // So It Will Just Write All The Data As If The File Was Empty Beforehand
         try (FileWriter writer = new FileWriter(GRAPH_FILEPATH)) {
-            // Get Graph In The Format:
-            // vertex count
-            // edge count
-            // list of all edges
-
             String edgeList = webScraper.scrapeEdgeListOfUrls();
-            int vertexCount = webScraper.getVisitedPageCount();
-            int edgeCount = webScraper.getTotalPageConnections();
 
-            writer.write(vertexCount + "\n");
-            writer.write(edgeCount + "\n");
             writer.write(edgeList);
 
         } catch (IOException e) {
