@@ -21,7 +21,7 @@ import org.jsoup.select.Elements;
  */
 public class WebScraper {
     // The Max Links Per Page Is To Limit The Growth Of The Graph, It Will Provide A Less Complete Tree, But May Be Required
-    // As The Difference Between A Search Depth Of 1, and A Search Depth Of 2 is 200:100,000 Links
+    // As The Difference Between A Search Depth Of 1, and A Search Depth Of 2 is 200 vs 100,000 Links
     // FIXME: Currently Unimplemented, Set To Large Value To Avoid Data Loss And Give The Largest Possible Graph
     public int MAX_LINKS_PER_PAGE = 999_999;
 
@@ -45,6 +45,45 @@ public class WebScraper {
         add("/wiki/Template:");
         add("/wiki/Template_talk:");
     }};
+
+    // Here Will Store The Visited Pages, This Can Be Used As The Graph's Vertices
+    private SET<String> visitedPages = new SET<>();
+
+    // Here Is Where The Links Between Pages Will Be Stored,
+    // Since Uniqueness Is Handled Internally In The `scrapeEdgeListOfUrls`, After Making Sure
+    // That The Page Is A Unique Link, It Should Be Safe To Increment This Value By 1
+    private int totalPageConnections = -1;
+
+
+    /**
+     * Returns The Total Count Of Pages Visited In Total After The `scrapeEdgeListOfUrls` Function Is Called.
+     * Duplicates Are Not Counted -- With This Being The Case, The Usage Of This Function Would Be Equivalent
+     * To A "getVertexCount" Function For A Graph.
+     *
+     * @return Returns The Count Of Pages Visited In Total After The `scrapeEdgeListOfUrls` Function Is Called
+     * @throws RuntimeException If `scrapeEdgeListOfUrls` Is Not Called, To Check For This, The Function Checks
+     *                          Whether `visitedPages` Is Empty, If So, The Exception Is Thrown
+     */
+    public int getVisitedPageCount() {
+        if (visitedPages.isEmpty())
+            throw new RuntimeException("`visitedPages` Is Empty, Try Calling `WebScraper.scrapeEdgeListOfUrls(...)` Before Calling `WebScraper.getVisitedPageCount()`");
+        return visitedPages.size();
+    }
+    /**
+     * Returns The Amount Of Links From 1 Page To Another After The `scrapeEdgeListOfUrls` Function Is Called.
+     * Duplicates Should Not Be Included, As Duplicates Are Handled In The `scrapeEdgeListOfUrls` Function.
+     * This Function Would Be The Equivalent To A "getEdgeCount" Function For A Graph.
+     *
+     * @return Returns The Count Of Connections (i.e. "link1 -> link2") After The `scrapeEdgeListOfUrls` Function Is Called
+     * @throws RuntimeException If `scrapeEdgeListOfUrls` Is Not Called, To Check For This, The Function Checks
+     *      *                          Whether `totalPageConnections` Is Less Than 0, If So, The Exception Is Thrown
+     */
+    public int getTotalPageConnections() {
+        if (totalPageConnections < 0)
+            throw new RuntimeException("`totalPageConnections` Is Less Than 0, Try Calling `WebScraper.scrapeEdgeListOfUrls(...)` Before Calling `WebScraper.getTotalPageConnections()`");
+        return totalPageConnections;
+    }
+
 
     /**
      * Generates an edge list of urls by crawling a wiki for all its articles.
@@ -94,10 +133,19 @@ public class WebScraper {
                 String wikiPage = element.attr("href").replace("/wiki/","");
                 // Add Links That Pass All Tests Before-Hand
                 linkedPages.add(wikiPage);
+
+                // Here We Need To Add The Page To The Visited Pages Set So That We Can Get An Accurate Vertex Count
+                visitedPages.add(wikiPage);
+
                 if (linkedPages.size() >= MAX_LINKS_PER_PAGE) {
                     break;
                 }
             }
+            // All Pages That Were Linked And Not Duplicated Are In `linkedPages`
+            // In That Case We Can Just Add The Size After The Page Is Done Being
+            // Iterated Over. Im 99% Certain This Is 100% Correct And 5% Concerned That
+            // There May Be An Off By 1, But The Math Checked Out, So We Should Be Fine
+            totalPageConnections += linkedPages.size();
 
             // Go Through All Linked Pages And Recursively Add More Links From The Given Link
             for (String wikiPage : linkedPages) {
@@ -149,6 +197,12 @@ public class WebScraper {
     public WebScraper() {
         // Here We Dont Have To Set Anything,
         // Everything Is Set By Default When Declared
+    }
+
+
+    public static void main(String[] args) {
+        WebScraper webScraper = new WebScraper();
+        StdOut.println(webScraper.scrapeEdgeListOfUrls());
     }
 
 }
