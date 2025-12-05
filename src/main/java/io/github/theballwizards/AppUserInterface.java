@@ -2,9 +2,16 @@ package io.github.theballwizards;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.function.BiFunction;
 
 public class AppUserInterface extends JFrame {
-    private Runnable searchCallback;
+    private BiFunction<String, String, Iterable<String>> searchCallback;
+    private DefaultListModel outputList;
+
+    final JTextField startUrlField;
+    final JTextField endUrlField;
 
     public AppUserInterface() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +27,7 @@ public class AppUserInterface extends JFrame {
         gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
         main.add(startLabel, gbc);
 
-        final var startUrlField = new JTextField();
+        startUrlField = new JTextField();
         gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 1;
         main.add(startUrlField, gbc);
 
@@ -28,7 +35,7 @@ public class AppUserInterface extends JFrame {
         gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
         main.add(endLabel, gbc);
 
-        final var endUrlField = new JTextField();
+        endUrlField = new JTextField();
         gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 1;
         main.add(endUrlField, gbc);
 
@@ -38,12 +45,19 @@ public class AppUserInterface extends JFrame {
         main.add(btn, gbc);
         gbc.gridwidth = 1;
 
-        final var model = new DefaultListModel<String>();
-        model.addElement("ITEM 1");
-        model.addElement("ITEM 2");
-        model.addElement("ITEM 3");
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                outputList.removeAllElements();
+                for (final String s : searchCallback.apply(startUrlField.getText(), endUrlField.getText())) {
+                    outputList.addElement(s);
+                }
+            }
+        });
 
-        final var list = new JList<String>(model);
+        outputList = new DefaultListModel<String>();
+
+        final var list = new JList<String>(outputList);
         final var scrollPane = new JScrollPane(list);
 
         gbc.gridx = 0; gbc.gridy = 3;
@@ -58,15 +72,12 @@ public class AppUserInterface extends JFrame {
     }
 
     /**
-     * Finds a path of urls between two articles through a wiki.
-     * Articles must have the same web domain.
-     * Warning, this may take a while.
-     * @param graph A directional graph containing every url on the site
-     * @param startUrl The starting position
-     * @param endUrl The target position
-     * @return An iterable of urls, starting at the start, and ending at the end.
+     * Sets the function to run when clicking the go button
+     * @param searchCallback must take in String startUrl, String endUrl, and give a Iterable<String>
+     * @return this
      */
-    private static Iterable<String> findPath(String startUrl, String endUrl) {
-        return null; // TODO
+    public AppUserInterface setSearchCallback(BiFunction<String, String, Iterable<String>> searchCallback) {
+        this.searchCallback = searchCallback;
+        return this;
     }
 }

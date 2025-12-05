@@ -1,13 +1,14 @@
 package io.github.theballwizards;
 
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.Queue;
 
 public class App {
     private static Digraph graph;
     static AppUserInterface ui;
 
     public static void main(String[] args) {
-        ui = new AppUserInterface();
+        ui = new AppUserInterface().setSearchCallback(App::findPath);
     }
 
     /**
@@ -19,6 +20,10 @@ public class App {
      * @return An iterable of urls, starting at the start, and ending at the end.
      */
     private static Iterable<String> findPath(String startUrl, String endUrl) {
-        return null; // TODO
+        final var q = new Queue<String>();
+        q.enqueue(startUrl);
+        q.enqueue("ff");
+        q.enqueue(endUrl);
+        return q;
     }
 }
