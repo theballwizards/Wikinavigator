@@ -19,31 +19,63 @@ public class AppUserInterface extends JFrame {
         setSize(800, 800);
 
         final var main = new JPanel(new GridBagLayout());
+        main.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 100, 5, 100);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        int gridy = 0;
+
+        final var title = new JLabel("Wikinavigator");
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
+        gbc.weightx = 1;
+        main.add(title, gbc);
+        gbc.gridwidth = 1;
+
+        gridy ++;
+
+        final var desc = new JLabel("Find the shortest path between two wikipedia articles");
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
+        gbc.weightx = 1;
+        main.add(desc, gbc);
+        gbc.gridwidth = 1;
+
+        gridy ++;
+
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
+        gbc.weightx = 1;
+        main.add(new JSeparator(), gbc);
+        gbc.gridwidth = 1;
+
+        gridy ++;
+
         final var startLabel = new JLabel("Start:");
-        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.weightx = 0;
         main.add(startLabel, gbc);
 
         startUrlField = new JTextField();
-        gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 1;
+        gbc.gridx = 1; gbc.gridy = gridy; gbc.weightx = 1;
         main.add(startUrlField, gbc);
 
+        gridy ++;
+
         final var endLabel = new JLabel("End:");
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.weightx = 0;
         main.add(endLabel, gbc);
 
         endUrlField = new JTextField();
-        gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 1;
+        gbc.gridx = 1; gbc.gridy = gridy; gbc.weightx = 1;
         main.add(endUrlField, gbc);
 
+        gridy ++;
+
         final var btn = new JButton("Go");
-        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
         gbc.weightx = 1;
         main.add(btn, gbc);
         gbc.gridwidth = 1;
+
+        gridy++;
 
         btn.addActionListener(new ActionListener() {
             @Override
@@ -60,7 +92,7 @@ public class AppUserInterface extends JFrame {
         final var list = new JList<String>(outputList);
         final var scrollPane = new JScrollPane(list);
 
-        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.gridx = 0; gbc.gridy = gridy;
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridwidth = 2;
