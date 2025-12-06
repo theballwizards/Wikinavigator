@@ -71,6 +71,16 @@ public class AppUserInterface extends JFrame {
         final var endShuffle = new JButton("Shuffle");
         gbc.gridx = 1; gbc.gridy = gridy; gbc.weightx = 1;
         main.add(endShuffle, gbc);
+        endShuffle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    endUrlField.setSelectedItem(getRandomArticle.call());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         gbc.gridx = 2; gbc.gridy = gridy; gbc.weightx = 100;
         main.add(endUrlField, gbc);
