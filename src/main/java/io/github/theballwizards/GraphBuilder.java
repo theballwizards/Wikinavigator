@@ -142,7 +142,7 @@ public class GraphBuilder {
         StdOut.printf("Has File: %s\n", GraphBuilder.hasCachedDataFile() ? "True" : "False");
         var graph = GraphBuilder.build();
         StdOut.printf("Graph Is Built! Where Is X?\n");
-        StdOut.printf("BlueJ: Index = %d\n", graph.indexOf("\"BlueJ\""));
+        StdOut.printf("BlueJ: Index = %d\n", graph.indexOf("BlueJ"));
 
     }
 

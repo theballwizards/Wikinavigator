@@ -3,12 +3,16 @@ package io.github.theballwizards;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.function.BiFunction;
+
 public class App {
     private static Digraph graph;
     static AppUserInterface ui;
 
     public static void main(String[] args) {
-        ui = new AppUserInterface().setSearchCallback(App::findPath);
+        ui = new AppUserInterface()
+                .setSearchCallback(App::findPath)
+                .setGetInputOptions(App::getInputOptions);
     }
 
     /**
@@ -24,6 +28,14 @@ public class App {
         q.enqueue(startUrl);
         q.enqueue("ff");
         q.enqueue(endUrl);
+        return q;
+    }
+
+    private static Iterable<String> getInputOptions() {
+        final var q = new Queue<String>();
+        q.enqueue("fewfwe");
+        q.enqueue("ff");
+        q.enqueue("fewiowfe");
         return q;
     }
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 
 public class AppUserInterface extends JFrame {
@@ -11,7 +12,7 @@ public class AppUserInterface extends JFrame {
     private DefaultListModel outputList;
 
     final JTextField startUrlField;
-    final JTextField endUrlField;
+    final JComboBox<String> endUrlField;
 
     public AppUserInterface() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,7 +64,9 @@ public class AppUserInterface extends JFrame {
         gbc.gridx = 0; gbc.gridy = gridy; gbc.weightx = 0;
         main.add(endLabel, gbc);
 
-        endUrlField = new JTextField();
+        endUrlField = new JComboBox<>();
+        endUrlField.setEditable(true);
+
         gbc.gridx = 1; gbc.gridy = gridy; gbc.weightx = 1;
         main.add(endUrlField, gbc);
 
@@ -81,7 +84,7 @@ public class AppUserInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 outputList.removeAllElements();
-                for (final String s : searchCallback.apply(startUrlField.getText(), endUrlField.getText())) {
+                for (final String s : searchCallback.apply(startUrlField.getText(), "")) {
                     outputList.addElement(s);
                 }
             }
@@ -111,5 +114,9 @@ public class AppUserInterface extends JFrame {
     public AppUserInterface setSearchCallback(BiFunction<String, String, Iterable<String>> searchCallback) {
         this.searchCallback = searchCallback;
         return this;
+    }
+
+    public void setInputOptions(Iterable<String> inputOptions) {
+        for (final var s : inputOptions) endUrlField.addItem(s);
     }
 }
