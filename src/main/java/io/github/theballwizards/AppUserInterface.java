@@ -9,6 +9,7 @@ import java.util.function.BiFunction;
 
 public class AppUserInterface extends JFrame {
     private BiFunction<String, String, Iterable<String>> searchCallback;
+    private Callable<String> getRandomArticle;
     private DefaultListModel outputList;
 
     final JTextField startUrlField;
@@ -17,7 +18,7 @@ public class AppUserInterface extends JFrame {
     public AppUserInterface() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(800, 800);
+        setSize(1200, 800);
 
         final var main = new JPanel(new GridBagLayout());
         main.setBackground(Color.WHITE);
@@ -28,7 +29,7 @@ public class AppUserInterface extends JFrame {
         int gridy = 0;
 
         final var title = new JLabel("Wikinavigator");
-        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 3;
         gbc.weightx = 1;
         main.add(title, gbc);
         gbc.gridwidth = 1;
@@ -36,14 +37,14 @@ public class AppUserInterface extends JFrame {
         gridy ++;
 
         final var desc = new JLabel("Find the shortest path between two wikipedia articles");
-        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 3;
         gbc.weightx = 1;
         main.add(desc, gbc);
         gbc.gridwidth = 1;
 
         gridy ++;
 
-        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 3;
         gbc.weightx = 1;
         main.add(new JSeparator(), gbc);
         gbc.gridwidth = 1;
@@ -61,19 +62,23 @@ public class AppUserInterface extends JFrame {
         gridy ++;
 
         final var endLabel = new JLabel("End:");
-        gbc.gridx = 0; gbc.gridy = gridy; gbc.weightx = 0;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.weightx = 1;
         main.add(endLabel, gbc);
 
         endUrlField = new JComboBox<>();
         endUrlField.setEditable(true);
 
+        final var endShuffle = new JButton("Shuffle");
         gbc.gridx = 1; gbc.gridy = gridy; gbc.weightx = 1;
+        main.add(endShuffle, gbc);
+
+        gbc.gridx = 2; gbc.gridy = gridy; gbc.weightx = 100;
         main.add(endUrlField, gbc);
 
         gridy ++;
 
         final var btn = new JButton("Go");
-        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = gridy; gbc.gridwidth = 3;
         gbc.weightx = 1;
         main.add(btn, gbc);
         gbc.gridwidth = 1;
@@ -98,7 +103,7 @@ public class AppUserInterface extends JFrame {
         gbc.gridx = 0; gbc.gridy = gridy;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.BOTH;
         main.add(scrollPane, gbc);
 
@@ -113,6 +118,11 @@ public class AppUserInterface extends JFrame {
      */
     public AppUserInterface setSearchCallback(BiFunction<String, String, Iterable<String>> searchCallback) {
         this.searchCallback = searchCallback;
+        return this;
+    }
+
+    public AppUserInterface setGetRandomArticle(Callable<String> r) {
+        this.getRandomArticle = r;
         return this;
     }
 

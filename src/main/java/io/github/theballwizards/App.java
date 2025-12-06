@@ -11,7 +11,8 @@ public class App {
 
     public static void main(String[] args) {
         ui = new AppUserInterface()
-                .setSearchCallback(App::findPath);
+                .setSearchCallback(App::findPath)
+                .setGetRandomArticle(() -> {return "Dogs";});
 
         ui.setInputOptions(getInputOptions());
     }
