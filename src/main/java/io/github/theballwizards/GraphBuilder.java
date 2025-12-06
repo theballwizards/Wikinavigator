@@ -52,6 +52,23 @@ public class GraphBuilder {
      * // TODO: Create Tests To Make Sure The Graph File Is Rebuilt Regardless Of The Cache's Existence Or Non-Existence
      */
     public static SymbolDigraph rebuild() {
+
+        // First Create The Directories To The File
+        String directoryPath = GRAPH_FILEPATH.substring(0, GRAPH_FILEPATH.lastIndexOf('/'));
+        if (new File(directoryPath).mkdirs()) {
+            System.err.println("Failed Creating Directories To Graph File");
+        }
+
+        // Then Create The Actual File
+        try {
+            File graphFile = new File(GRAPH_FILEPATH);
+            if (!graphFile.createNewFile()) {
+                System.err.println("Failed Creating Graph File");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed Creating Graph File: " + e.getMessage());
+        }
+
         // If The Cache File Does Not Exist, We Need To Create It
         // In Either Case, The File Will Be Empty, The Writer Does Not Truncate
         // So It Will Just Write All The Data As If The File Was Empty Beforehand
