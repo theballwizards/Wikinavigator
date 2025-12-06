@@ -11,8 +11,9 @@ public class App {
 
     public static void main(String[] args) {
         ui = new AppUserInterface()
-                .setSearchCallback(App::findPath)
-                .setGetInputOptions(App::getInputOptions);
+                .setSearchCallback(App::findPath);
+
+        ui.setInputOptions(getInputOptions());
     }
 
     /**
